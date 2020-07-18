@@ -16,13 +16,13 @@ import routes from './routes'
 import menuHeader from '@/menu/header'
 import menuAside from '@/menu/aside'
 import { frameInRoutes } from '@/router/routes'
-//路由与组件映射关系
+// 路由与组件映射关系
 import routerMapComponents from '@/routerMapComponents'
-//模拟动态菜单与路由
-//import { permissionMenu, permissionRouter } from '@/mock/permissionMenuAndRouter'
-//代码生成器生成的菜单与路由
+// 模拟动态菜单与路由
+// import { permissionMenu, permissionRouter } from '@/mock/permissionMenuAndRouter'
+// 代码生成器生成的菜单与路由
 import autoGenerateMenusAndRouters from '@/development'
-import * as userService from "@/api/sys/user";
+import * as userService from '@/api/sys/user'
 
 Vue.use(VueRouter)
 
@@ -31,6 +31,7 @@ const router = new VueRouter({
   routes
 })
 
+// eslint-disable-next-line one-var
 let permissionMenu, permissionRouter = []
 
 let permission = {
@@ -39,11 +40,11 @@ let permission = {
   isAdmin: false
 }
 
-//标记是否已经拉取权限信息
+// 标记是否已经拉取权限信息
 let isFetchPermissionInfo = false
 
 let fetchPermissionInfo = async () => {
-  //处理动态添加的路由
+  // 处理动态添加的路由
   const formatRoutes = function (routes) {
     routes.forEach(route => {
       route.component = routerMapComponents[route.component]
@@ -79,20 +80,20 @@ let fetchPermissionInfo = async () => {
     permission.functions = userPermissionInfo.userPermissions
     permission.roles = userPermissionInfo.userRoles
     permission.interfaces = util.formatInterfaces(userPermissionInfo.accessInterfaces)
-    permission.isAdmin = userPermissionInfo.isAdmin == 1
+    permission.isAdmin = userPermissionInfo.isAdmin === 1
   } catch (ex) {
     console.log(ex)
   }
 
-  //组合代码生成器生成的菜单和路由
+  // 组合代码生成器生成的菜单和路由
   permissionMenu = [...permissionMenu, ...autoGenerateMenusAndRouters.menus]
   permissionRouter = [...permissionRouter, ...autoGenerateMenusAndRouters.routers]
 
   formatRoutes(permissionRouter)
   let allMenuAside = [...menuAside, ...permissionMenu]
   let allMenuHeader = [...menuHeader, ...permissionMenu]
-  //动态添加路由
-  router.addRoutes(permissionRouter);
+  // 动态添加路由
+  router.addRoutes(permissionRouter)
   // 处理路由 得到每一级的路由设置
   store.commit('d2admin/page/init', [...frameInRoutes, ...permissionRouter])
   // 设置顶栏菜单
@@ -107,7 +108,7 @@ let fetchPermissionInfo = async () => {
   store.dispatch('d2admin/page/openedLoad')
   await Promise.resolve()
 }
-//免校验token白名单
+// 免校验token白名单
 let whiteList = ['/login']
 
 /**
@@ -124,10 +125,10 @@ router.beforeEach(async (to, from, next) => {
     // 这里暂时将cookie里是否存有token作为验证是否登录的条件
     // 请根据自身业务需要修改
     if (token && token !== 'undefined') {
-      //拉取权限信息
+      // 拉取权限信息
       if (!isFetchPermissionInfo) {
-        await fetchPermissionInfo();
-        isFetchPermissionInfo = true;
+        await fetchPermissionInfo()
+        isFetchPermissionInfo = true
         next(to.path, true)
       } else {
         next()
@@ -145,7 +146,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.name === 'login') {
       // 如果已经登录，则直接进入系统
       if (token && token !== undefined) {
-        next(from.path, true);
+        next(from.path, true)
         NProgress.done()
       } else {
         next()

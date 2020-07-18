@@ -2,7 +2,7 @@ import request from '@/plugin/axios'
 
 export function AccountLogin(data) {
   return request({
-    url: '/auth/login',
+    url: '/api/auth/jwt/token',
     method: 'post',
     data,
     loading: {

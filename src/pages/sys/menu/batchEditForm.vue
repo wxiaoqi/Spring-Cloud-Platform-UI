@@ -13,67 +13,67 @@
 
 </template>
 <script>
-import * as menuService from "@/api/sys/menu";
-import CodeMirror from "codemirror";
-import "codemirror/addon/lint/lint.css";
-import "codemirror/addon/fold/foldgutter.css";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/liquibyte.css";
-require("script-loader!jsonlint");
-import "codemirror/mode/javascript/javascript";
-import "codemirror/addon/lint/lint";
-import "codemirror/addon/lint/json-lint";
-import "codemirror/addon/fold/foldgutter";
-import "codemirror/addon/fold/brace-fold";
+import * as menuService from '@/api/sys/menu'
+import CodeMirror from 'codemirror'
+import 'codemirror/addon/lint/lint.css'
+import 'codemirror/addon/fold/foldgutter.css'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/liquibyte.css'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/addon/lint/lint'
+import 'codemirror/addon/lint/json-lint'
+import 'codemirror/addon/fold/foldgutter'
+import 'codemirror/addon/fold/brace-fold'
+require('script-loader!jsonlint')
 export default {
-  name: "menuEditForm",
+  name: 'menuEditForm',
   props: {
     value: Boolean
   },
-  data() {
+  data () {
     return {
       loading: false,
       dialogVisible: false
-    };
+    }
   },
   watch: {
-    value(val) {
-      this.dialogVisible = val;
+    value (val) {
+      this.dialogVisible = val
     },
-    dialogVisible(val) {
-      this.$emit("input", val);
+    dialogVisible (val) {
+      this.$emit('input', val)
     }
   },
   methods: {
-    dialogOpen() {
+    dialogOpen () {
       if (!this.jsonEditor) {
         this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
           lineNumbers: true,
           lineWrapping: true,
-          mode: "application/json",
-          gutters: ["CodeMirror-lint-markers", "CodeMirror-foldgutter"],
-          theme: "liquibyte",
+          mode: 'application/json',
+          gutters: ['CodeMirror-lint-markers', 'CodeMirror-foldgutter'],
+          theme: 'liquibyte',
           foldGutter: true,
           lint: true,
           viewportMargin: Infinity
-        });
+        })
       }
       menuService.getMenuList().then(data => {
-        this.jsonEditor.setValue(JSON.stringify(data, null, 2));
-      });
+        this.jsonEditor.setValue(JSON.stringify(data, null, 2))
+      })
     },
-    save() {
-      this.dialogVisible = false;
-      this.$emit("submit");
+    save () {
+      this.dialogVisible = false
+      this.$emit('submit')
     },
-    close() {
-      this.dialogClose();
+    close () {
+      this.dialogClose()
     },
-    dialogClose() {
-      this.dialogVisible = false;
+    dialogClose () {
+      this.dialogVisible = false
     }
   }
-};
+}
 </script>
 <style lang="scss">
 .CodeMirror {
@@ -84,4 +84,3 @@ export default {
   z-index: 9999;
 }
 </style>
-

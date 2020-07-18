@@ -13,81 +13,82 @@
 
 </template>
 <script>
-import * as routeService from "@/api/sys/route";
-import CodeMirror from "codemirror";
-import "codemirror/addon/lint/lint.css";
-import "codemirror/addon/fold/foldgutter.css";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/liquibyte.css";
-require("script-loader!jsonlint");
-import "codemirror/mode/javascript/javascript";
-import "codemirror/addon/lint/lint";
-import "codemirror/addon/lint/json-lint";
-import "codemirror/addon/fold/foldgutter";
-import "codemirror/addon/fold/brace-fold";
+import * as routeService from '@/api/sys/route'
+import CodeMirror from 'codemirror'
+import 'codemirror/addon/lint/lint.css'
+import 'codemirror/addon/fold/foldgutter.css'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/liquibyte.css'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/addon/lint/lint'
+import 'codemirror/addon/lint/json-lint'
+import 'codemirror/addon/fold/foldgutter'
+import 'codemirror/addon/fold/brace-fold'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+require('script-loader!jsonlint')
 export default {
-  name: "routeEditForm",
+  name: 'routeEditForm',
   props: {
     value: Boolean
   },
-  data() {
+  data () {
     return {
       loading: false,
       dialogVisible: false
-    };
+    }
   },
   watch: {
-    value(val) {
-      this.dialogVisible = val;
+    value (val) {
+      this.dialogVisible = val
     },
-    dialogVisible(val) {
-      this.$emit("input", val);
+    dialogVisible (val) {
+      this.$emit('input', val)
     }
   },
   methods: {
-    dialogOpen() {
+    dialogOpen () {
       if (!this.jsonEditor) {
         this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
           lineNumbers: true,
           lineWrapping: true,
-          mode: "application/json",
-          gutters: ["CodeMirror-lint-markers", "CodeMirror-foldgutter"],
-          theme: "liquibyte",
+          mode: 'application/json',
+          gutters: ['CodeMirror-lint-markers', 'CodeMirror-foldgutter'],
+          theme: 'liquibyte',
           foldGutter: true,
           lint: true,
           viewportMargin: Infinity
-        });
+        })
       }
       routeService.getRouteList().then(data => {
-        this.formatRoutes(data);
-        this.jsonEditor.setValue(JSON.stringify(data, null, 2));
-      });
+        this.formatRoutes(data)
+        this.jsonEditor.setValue(JSON.stringify(data, null, 2))
+      })
     },
-    formatRoutes(routes) {
+    formatRoutes (routes) {
       for (let route of routes) {
         route.meta = {
           title: route.title,
           cache: route.cache
-        };
-        delete route.title;
-        delete route.cache;
+        }
+        delete route.title
+        delete route.cache
         if (route.children && route.children.length > 0) {
-          this.formatRoutes(route.children);
+          this.formatRoutes(route.children)
         }
       }
     },
-    save() {
-      this.dialogVisible = false;
-      this.$emit("submit");
+    save () {
+      this.dialogVisible = false
+      this.$emit('submit')
     },
-    close() {
-      this.dialogClose();
+    close () {
+      this.dialogClose()
     },
-    dialogClose() {
-      this.dialogVisible = false;
+    dialogClose () {
+      this.dialogVisible = false
     }
   }
-};
+}
 </script>
 <style lang="scss">
 .CodeMirror {
@@ -98,4 +99,3 @@ export default {
   z-index: 9999;
 }
 </style>
-

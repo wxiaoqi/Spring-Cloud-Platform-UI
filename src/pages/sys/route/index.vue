@@ -68,103 +68,103 @@
 </template>
 
 <script>
-import * as routeService from "@/api/sys/route";
-import editForm from "./batchEditForm";
+import * as routeService from '@/api/sys/route'
+import editForm from './batchEditForm'
 export default {
-  name: "RoutePage",
+  name: 'RoutePage',
   components: { editForm },
-  data() {
+  data () {
     return {
       formEdit: false,
       currentId: 0,
       list: [],
       defaultProps: {
-        label: "name"
+        label: 'name'
       },
       form: {
-        id: "",
+        id: '',
         parentId: 0,
-        name: "",
-        title: "",
-        path: "",
-        permission: "",
-        component: "",
-        componentPath: "",
+        name: '',
+        title: '',
+        path: '',
+        permission: '',
+        component: '',
+        componentPath: '',
         sort: 0,
         isLock: false,
         cache: true
       },
       editFormDialogVisible: false
-    };
+    }
   },
   methods: {
-    getRouteList() {
+    getRouteList () {
       routeService.getRouteList().then(data => {
-        this.list = data;
-      });
+        this.list = data
+      })
     },
-    getRouteData(data) {
-      let id = data.id;
+    getRouteData (data) {
+      let id = data.id
       routeService.getRoute(id).then(data => {
-        this.form = { ...data };
-        this.currentId = id;
-      });
+        this.form = { ...data }
+        this.currentId = id
+      })
     },
-    add() {
+    add () {
       this.form = {
         id: 0,
         parentId: this.currentId
-      };
-      this.formEdit = true;
+      }
+      this.formEdit = true
     },
-    edit() {
-      this.formEdit = true;
+    edit () {
+      this.formEdit = true
     },
-    del() {
-      this.$confirm("确认删除？", "确认信息", {
+    del () {
+      this.$confirm('确认删除？', '确认信息', {
         distinguishCancelAndClose: true,
-        confirmButtonText: "删除",
-        cancelButtonText: "取消"
+        confirmButtonText: '删除',
+        cancelButtonText: '取消'
       }).then(() => {
         routeService.delRoute(this.currentId).then(() => {
-          this.currentId = 0;
-          this.getRouteList();
-        });
-      });
+          this.currentId = 0
+          this.getRouteList()
+        })
+      })
     },
-    cancel() {
-      this.formEdit = false;
-      this.currentId = 0;
-      this.form = {};
+    cancel () {
+      this.formEdit = false
+      this.currentId = 0
+      this.form = {}
     },
-    submit() {
+    submit () {
       routeService.saveRoute(this.form).then(() => {
         routeService.getRouteList().then(data => {
-          this.list = data;
-        });
-      });
+          this.list = data
+        })
+      })
     },
-    reset() {
+    reset () {
       this.form = {
         id: this.currentId,
         parentId: this.form.parentId,
-        name: "",
-        title: "",
-        path: "",
-        permission: "",
-        component: "",
-        componentPath: "",
+        name: '',
+        title: '',
+        path: '',
+        permission: '',
+        component: '',
+        componentPath: '',
         sort: 0,
         isLock: false,
         cache: true
-      };
+      }
     },
-    batchEdit() {
-      this.editFormDialogVisible = !this.editFormDialogVisible;
+    batchEdit () {
+      this.editFormDialogVisible = !this.editFormDialogVisible
     }
   },
-  created() {
-    this.getRouteList();
+  created () {
+    this.getRouteList()
   }
-};
+}
 </script>
