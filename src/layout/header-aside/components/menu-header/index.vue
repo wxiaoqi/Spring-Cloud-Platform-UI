@@ -52,7 +52,9 @@ export default {
   watch: {
     '$route.matched': {
       handler (val) {
-        this.active = val[val.length - 1].path
+        console.log(val)
+        console.log('/' + val[val.length - 1].path.split('/')[1])
+        this.active = '/' + val[val.length - 1].path.split('/')[1]
       },
       immediate: true
     }

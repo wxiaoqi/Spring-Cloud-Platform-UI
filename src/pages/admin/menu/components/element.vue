@@ -1,9 +1,9 @@
 <template>
   <div class="app-container calendar-list-container">
     <div class="filter-container">
-      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="资源名称" v-model="listQuery.name"> </el-input>
-      <el-button class="filter-item" type="primary" icon="search" @click="handleFilter">搜索</el-button>
-      <el-button class="filter-item" v-if="menuManager_btn_element_add" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit">添加</el-button>
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="资源名称" v-model="listQuery.name" size="mini"> </el-input>
+      <el-button class="filter-item" type="primary" icon="search" size="mini" @click="handleFilter">搜索</el-button>
+      <el-button class="filter-item" v-if="menuManager_btn_element_add" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit" size="mini">添加</el-button>
     </div>
     <el-table :key='tableKey' :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
       <el-table-column align="center" label="id" width="65">

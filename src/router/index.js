@@ -32,7 +32,7 @@ const router = new VueRouter({
 })
 
 // eslint-disable-next-line one-var
-let permissionMenu, permissionRouter = []
+let permissionMenu, permissionRouter, permissionHeader = []
 
 let permission = {
   functions: [],
@@ -76,6 +76,7 @@ let fetchPermissionInfo = async () => {
   try {
     let userPermissionInfo = await userService.getUserPermissionInfo()
     permissionMenu = userPermissionInfo.accessMenus
+    permissionHeader = userPermissionInfo.accessHeader
     permissionRouter = userPermissionInfo.accessRoutes
     permission.functions = userPermissionInfo.userPermissions
     permission.roles = userPermissionInfo.userRoles
@@ -91,7 +92,7 @@ let fetchPermissionInfo = async () => {
 
   formatRoutes(permissionRouter)
   let allMenuAside = [...menuAside, ...permissionMenu]
-  let allMenuHeader = [...menuHeader, ...permissionMenu]
+  let allMenuHeader = [...menuHeader, ...permissionHeader]
   // 动态添加路由
   router.addRoutes(permissionRouter)
   // 处理路由 得到每一级的路由设置
@@ -101,7 +102,7 @@ let fetchPermissionInfo = async () => {
   // 设置侧边栏菜单
   store.commit('d2admin/menu/fullAsideSet', allMenuAside)
   // 初始化菜单搜索功能
-  store.commit('d2admin/search/init', allMenuHeader)
+  store.commit('d2admin/search/init', allMenuAside)
   // 设置权限信息
   store.commit('d2admin/permission/set', permission)
   // 加载上次退出时的多页列表

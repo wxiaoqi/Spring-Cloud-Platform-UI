@@ -2,9 +2,9 @@
   <d2-container>
   <div class="filter-container">
      <el-button-group>
-    <el-button type="primary" v-if="menuManager_btn_add" icon="plus" @click="handlerAdd">添加</el-button>
-    <el-button type="primary" v-if="menuManager_btn_edit" icon="edit" @click="handlerEdit">编辑</el-button>
-    <el-button type="primary" v-if="menuManager_btn_del" icon="delete" @click="handleDelete">删除</el-button>
+    <el-button type="primary" v-if="menuManager_btn_add" size="mini" icon="plus" @click="handlerAdd">添加</el-button>
+    <el-button type="primary" v-if="menuManager_btn_edit" size="mini" icon="edit" @click="handlerEdit">编辑</el-button>
+    <el-button type="primary" v-if="menuManager_btn_del" size="mini" icon="delete" @click="handleDelete">删除</el-button>
   </el-button-group>
   </div>
 <el-row>
@@ -39,7 +39,12 @@
           <el-input v-model="form.parentId" :disabled="formEdit" placeholder="请输入父级节点" readonly></el-input>
       </el-form-item>
       <el-form-item label="图标" prop="icon">
-          <el-input v-model="form.icon" :disabled="formEdit" placeholder="请输入图标"></el-input>
+        <d2-icon-select
+                v-model="form.icon"
+                :user-input="true"
+                 :disabled="formEdit"
+              />
+          <!-- <el-input v-model="form.icon" :disabled="formEdit" placeholder="请输入图标"></el-input> -->
       </el-form-item>
           <el-form-item label="资源路径" prop="href">
           <el-input v-model="form.href" :disabled="formEdit" placeholder="请输入资源路径"></el-input>
@@ -55,9 +60,15 @@
       <el-form-item label="描述"   prop="description">
           <el-input v-model="form.description" :disabled="formEdit" placeholder="请输入描述"></el-input>
       </el-form-item>
-       <el-form-item label="前端组件"   prop="attr1">
+       <!-- <el-form-item label="路由组件"   prop="attr1">
+          <el-input v-model="form.attr3" :disabled="formEdit" placeholder="请输入描述"></el-input>
+      </el-form-item>
+      <el-form-item label="路由路径"   prop="attr1">
           <el-input v-model="form.attr1" :disabled="formEdit" placeholder="请输入描述"></el-input>
       </el-form-item>
+      <el-form-item label="路由Meta"   prop="attr1">
+          <el-input v-model="form.attr2" :disabled="formEdit" placeholder="请输入描述"></el-input>
+      </el-form-item> -->
        <el-form-item v-if="formStatus === 'update'">
         <el-button type="primary" @click="update">更新</el-button>
         <el-button @click="onCancel">取消</el-button>
@@ -119,7 +130,9 @@ export default {
         path: undefined,
         enabled: undefined,
         type: undefined,
-        attr1: undefined
+        attr1: undefined,
+        attr2: undefined,
+        attr3: undefined
       },
       currentId: -1,
       menuManager_btn_add: false,
@@ -157,7 +170,7 @@ export default {
       if (!this.formEdit) {
         this.formStatus = 'update'
       }
-      getObj(data.id).then(response => {
+      getObj(data.id).then(data => {
         this.form = data
       })
       this.currentId = data.id
@@ -231,7 +244,10 @@ export default {
         orderNum: undefined,
         description: undefined,
         path: undefined,
-        enabled: undefined
+        enabled: undefined,
+        attr1: undefined,
+        attr2: undefined,
+        attr3: undefined
       }
     }
   }

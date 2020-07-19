@@ -66,7 +66,6 @@ service.interceptors.response.use(
   response => {
     loading.hide(response.config)
     const res = response.data
-    console.log(res)
     if (res.statusCode !== 200) {
       Message({
         message: res.msg,

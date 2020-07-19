@@ -4,7 +4,7 @@
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;margin-right: 20px;" class="filter-item" placeholder="姓名或账户" v-model="listQuery.name" size="small"> </el-input>
       <el-button class="filter-item" type="primary" icon="search" @click="handleFilter" size="small">搜索</el-button>
     </template>
-    <el-button class="filter-item"  v-v-permission:function="['userManager_btn_add']"  style="margin-left: 10px;" @click="handleCreate" type="primary" size="mini" icon="el-icon-circle-plus">添加</el-button>
+    <el-button class="filter-item"  v-permission:function="['userManager:btn_add']"  style="margin-left: 10px;" @click="handleCreate" type="primary" size="mini" icon="el-icon-circle-plus">添加</el-button>
   <el-table :key='tableKey' :data="list" v-loading.body="listLoading" size="small" stripe highlight-current-row style="width: 100%;margin-top: 20px">
     <el-table-column align="center" label="序号" width="65"> <template slot-scope="scope" >
           <span>{{scope.row.id}}</span>
@@ -189,7 +189,7 @@ export default {
     handleUpdate (row) {
       getObj(row.id)
         .then(response => {
-          this.form = response.data
+          this.form = response
           this.dialogFormVisible = true
           this.dialogStatus = 'update'
         })
