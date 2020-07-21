@@ -36,7 +36,7 @@ export default {
   },
   created () {
     this.initClients()
-    this.serviceManager_btn_clientManager = this.elements['serviceManager:btn_clientManager']
+    this.serviceManager_btn_clientManager = this.hasPermissions(['serviceManager:btn_clientManager'])
   },
   computed: {
     ...mapGetters([

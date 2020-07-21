@@ -60,7 +60,7 @@
       <el-form-item label="描述"   prop="description">
           <el-input v-model="form.description" :disabled="formEdit" placeholder="请输入描述"></el-input>
       </el-form-item>
-       <!-- <el-form-item label="路由组件"   prop="attr1">
+       <el-form-item label="路由组件"   prop="attr1">
           <el-input v-model="form.attr3" :disabled="formEdit" placeholder="请输入描述"></el-input>
       </el-form-item>
       <el-form-item label="路由路径"   prop="attr1">
@@ -68,7 +68,7 @@
       </el-form-item>
       <el-form-item label="路由Meta"   prop="attr1">
           <el-input v-model="form.attr2" :disabled="formEdit" placeholder="请输入描述"></el-input>
-      </el-form-item> -->
+      </el-form-item>
        <el-form-item v-if="formStatus === 'update'">
         <el-button type="primary" @click="update">更新</el-button>
         <el-button @click="onCancel">取消</el-button>

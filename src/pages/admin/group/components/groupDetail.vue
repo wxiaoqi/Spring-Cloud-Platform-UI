@@ -6,9 +6,9 @@
       <el-button type="primary" v-if="groupManager_btn_edit" icon="edit" @click="handlerEdit">编辑</el-button>
       <el-button type="primary" v-if="groupManager_btn_del" icon="delete" @click="handleDelete">删除</el-button>
       <el-button type="primary" v-if="groupManager_btn_resourceManager" @click="handlerAuthority">
-        <icon-svg icon-class="quanxian1"></icon-svg>权限分配</el-button>
+        权限分配</el-button>
       <el-button type="primary" v-if="groupManager_btn_userManager" @click="handlerUser">
-        <icon-svg icon-class="27"></icon-svg>关联用户</el-button>
+        关联用户</el-button>
     </el-button-group>
   </el-col>
   <el-col :span="8" style='margin-top:15px;'>
@@ -108,11 +108,11 @@ export default {
   },
   created () {
     this.getList()
-    this.groupManager_btn_edit = this.elements['groupManager:btn_edit']
-    this.groupManager_btn_del = this.elements['groupManager:btn_del']
-    this.groupManager_btn_add = this.elements['groupManager:btn_add']
-    this.groupManager_btn_userManager = this.elements['groupManager:btn_userManager']
-    this.groupManager_btn_resourceManager = this.elements['groupManager:btn_resourceManager']
+    this.groupManager_btn_edit = this.hasPermissions(['groupManager:btn_edit'])
+    this.groupManager_btn_del = this.hasPermissions(['groupManager:btn_del'])
+    this.groupManager_btn_add = this.hasPermissions(['groupManager:btn_add'])
+    this.groupManager_btn_userManager = this.hasPermissions(['groupManager:btn_userManager'])
+    this.groupManager_btn_resourceManager = this.hasPermissions(['groupManager:btn_resourceManager'])
   },
   computed: {
     ...mapGetters([
@@ -134,7 +134,7 @@ export default {
         this.formStatus = 'update'
       }
       getObj(data.id).then(response => {
-        this.form = response.data
+        this.form = response
       })
       this.currentId = data.id
     },

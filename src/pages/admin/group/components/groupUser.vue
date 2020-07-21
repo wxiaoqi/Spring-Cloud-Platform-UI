@@ -44,7 +44,7 @@ export default {
   },
   created () {
     this.initUsers()
-    this.groupManager_btn_userManager = this.elements['groupManager:btn_userManager']
+    this.groupManager_btn_userManager = this.hasPermissions(['groupManager:btn_userManager'])
   },
   computed: {
     ...mapGetters([

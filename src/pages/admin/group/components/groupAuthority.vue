@@ -61,7 +61,6 @@ import {
 } from '@/api/admin/group/index'
 import { mapGetters } from 'vuex'
 export default {
-  name: 'menu',
   props: {
     groupId: {
       default: '1'
@@ -92,8 +91,8 @@ export default {
   },
   created () {
     this.getList()
-    this.groupManager_menu = this.elements['groupManager:menu']
-    this.groupManager_element = this.elements['groupManager:element']
+    this.groupManager_menu = this.hasPermissions(['groupManager:menu'])
+    this.groupManager_element = this.hasPermissions(['groupManager:element'])
   },
   computed: {
     ...mapGetters([
@@ -121,10 +120,11 @@ export default {
             obj[this.list[i].id] = this.list[i]
           }
           const toggle = {}
-          for (let i = 0; i < data.data.length; i++) {
-            const id = data.data[i]
+          for (let i = 0; i < data.length; i++) {
+            const id = data[i]
+            console.log(data[i])
             if (obj[id] !== undefined && toggle[id] === undefined) {
-              this.$refs.elementTable.toggleRowSelection(obj[data.data[i]])
+              this.$refs.elementTable.toggleRowSelection(obj[data[i]])
               toggle[id] = true
             }
           }
@@ -176,8 +176,8 @@ export default {
     initAuthoritys () {
       getMenuAuthority(this.groupId).then(data => {
         const result = []
-        for (let i = 0; i < data.data.length; i++) {
-          result.push(data.data[i].id)
+        for (let i = 0; i < data.length; i++) {
+          result.push(data[i].id)
         }
         this.$refs.menuTree.setCheckedKeys(result)
       })

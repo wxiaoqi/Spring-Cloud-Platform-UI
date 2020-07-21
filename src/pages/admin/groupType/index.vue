@@ -1,86 +1,100 @@
 <template>
-<div class="app-container calendar-list-container">
-  <div class="filter-container">
-    <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="姓名或账户" v-model="listQuery.name"> </el-input>
-    <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
-    <el-button class="filter-item" v-if="groupTypeManager_btn_add" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit">添加</el-button>
-  </div>
-  <el-table :key='tableKey' :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%">
-    <el-table-column align="center" label="id" width="65"> <template slot-scope="scope" >
-                  <span>
-                    {{scope.row.id}}
-                  </span>
-</template>
+  <d2-container>
+    <template slot="header">
+
+      <div class="filter-container">
+        <el-input @keyup.enter.native="handleFilter" style="width: 200px;;margin-right: 20px;" class="filter-item"
+          placeholder="姓名或账户" v-model="listQuery.name" size="small"> </el-input>
+        <el-button class="filter-item" type="primary"  icon="search" @click="handleFilter" size="small">搜索
+        </el-button>
+
+      </div>
+    </template>
+    <el-button class="filter-item" v-if="groupTypeManager_btn_add" style="margin-left: 10px;" @click="handleCreate"
+      type="primary" size="mini" icon="el-icon-circle-plus">添加</el-button>
+
+    <el-table :key='tableKey' :data="list" v-loading.body="listLoading" size="small" stripe highlight-current-row
+      style="width: 100%;margin-top: 20px">
+      <el-table-column align="center" label="id" width="65"> <template slot-scope="scope">
+          <span>
+            {{scope.row.id}}
+          </span>
+        </template>
       </el-table-column>
       <el-table-column width="200px" align="center" label="编码">
-<template slot-scope="scope" >
-<span>{{scope.row.code}}</span>
-</template>
+        <template slot-scope="scope">
+          <span>{{scope.row.code}}</span>
+        </template>
 
-    </el-table-column>
-        <el-table-column width="200px" align="center" label="类型名称"><template slot-scope="scope" >
-  <span>
-                {{scope.row.name}}</span>
-</template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="类型名称"><template slot-scope="scope">
+          <span>
+            {{scope.row.name}}</span>
+        </template>
 
-    </el-table-column>
-    <el-table-column width="200px" align="center" label="描述">
-<template slot-scope="scope" >
-<span>
-                {{scope.row.description}}
-              </span>
-</template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="描述">
+        <template slot-scope="scope">
+          <span>
+            {{scope.row.description}}
+          </span>
+        </template>
 
-    </el-table-column>
-        <el-table-column width="200px" align="center" label="最后更新时间"><template slot-scope="scope" >
-  <span>
-                {{scope.row.updTime}}</span>
-</template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="最后更新时间"><template slot-scope="scope">
+          <span>
+            {{scope.row.updTime}}</span>
+        </template>
 
-    </el-table-column>
-        <el-table-column width="200px" align="center" label="最后更新人"><template slot-scope="scope" >
-  <span>
-                {{scope.row.updName}}</span>
-</template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="最后更新人"><template slot-scope="scope">
+          <span>
+            {{scope.row.updName}}</span>
+        </template>
 
-    </el-table-column>
-        <el-table-column width="200px" align="center" label="最后更新主机"><template slot-scope="scope" >
-  <span>
-                {{scope.row.updHost}}</span>
-</template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="最后更新主机"><template slot-scope="scope">
+          <span>
+            {{scope.row.updHost}}</span>
+        </template>
 
-    </el-table-column>
-    <el-table-column align="center" label="操作" width="150"><template slot-scope="scope" >
-  <el-button v-if="groupTypeManager_btn_edit" size="small" type="success" @click="handleUpdate(scope.row)">
-    编辑
-  </el-button>
-  <el-button v-if="groupTypeManager_btn_del" size="small" type="danger" @click="handleDelete(scope.row)">删除
-  </el-button>
-</template>
-    </el-table-column>
-  </el-table>
-  <div v-show="!listLoading" class="pagination-container">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
-  </div>
-  <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-    <el-form :model="form" :rules="rules" ref="form" label-width="100px">
-      <el-form-item label="编码" prop="code">
-        <el-input v-model="form.code" placeholder="请输入编码"></el-input>
-      </el-form-item>
-      <el-form-item label="类型名称" prop="name">
-        <el-input v-model="form.name" placeholder="请输入类型名称"></el-input>
-      </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input v-model="form.description" placeholder="请输入描述"></el-input>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="cancel('form')">取 消</el-button>
-      <el-button v-if="dialogStatus=='create'" type="primary" @click="create('form')">确 定</el-button>
-      <el-button v-else type="primary" @click="update('form')">确 定</el-button>
-    </div>
-  </el-dialog>
-</div>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="150" fixed="right"><template slot-scope="scope">
+          <el-button v-if="groupTypeManager_btn_edit" size="small" type="success" @click="handleUpdate(scope.row)">
+            编辑
+          </el-button>
+          <el-button v-if="groupTypeManager_btn_del" size="small" type="danger" @click="handleDelete(scope.row)">删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <template slot="footer">
+
+      <!-- <div v-show="!listLoading" class="pagination-container"> -->
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page.sync="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit"
+        layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
+      <!-- </div> -->
+    </template>
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form :model="form" :rules="rules" ref="form" label-width="100px">
+        <el-form-item label="编码" prop="code">
+          <el-input v-model="form.code" placeholder="请输入编码"></el-input>
+        </el-form-item>
+        <el-form-item label="类型名称" prop="name">
+          <el-input v-model="form.name" placeholder="请输入类型名称"></el-input>
+        </el-form-item>
+        <el-form-item label="描述" prop="description">
+          <el-input v-model="form.description" placeholder="请输入描述"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel('form')">取 消</el-button>
+        <el-button v-if="dialogStatus=='create'" type="primary" @click="create('form')">确 定</el-button>
+        <el-button v-else type="primary" @click="update('form')">确 定</el-button>
+      </div>
+    </el-dialog>
+  </d2-container>
 </template>
 
 <script>
@@ -155,9 +169,9 @@ export default {
   },
   created () {
     this.getList()
-    this.groupTypeManager_btn_edit = this.elements['groupTypeManager:btn_edit']
-    this.groupTypeManager_btn_del = this.elements['groupTypeManager:btn_del']
-    this.groupTypeManager_btn_add = this.elements['groupTypeManager:btn_add']
+    this.groupTypeManager_btn_edit = this.hasPermissions(['groupTypeManager:btn_edit'])
+    this.groupTypeManager_btn_del = this.hasPermissions(['groupTypeManager:btn_del'])
+    this.groupTypeManager_btn_add = this.hasPermissions(['groupTypeManager:btn_add'])
   },
   computed: {
     ...mapGetters([
