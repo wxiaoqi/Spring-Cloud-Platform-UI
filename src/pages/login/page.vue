@@ -84,7 +84,7 @@ export default {
       // 表单
       formLogin: {
         username: "admin",
-        password: "123",
+        password: "admin",
         code: "v9am"
       },
       // 校验

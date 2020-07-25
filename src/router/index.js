@@ -33,7 +33,7 @@ const router = new VueRouter({
 
 // eslint-disable-next-line one-var
 let permissionMenu, permissionRouter, permissionHeader = []
-
+let userInfo = {}
 let permission = {
   functions: [],
   roles: [],
@@ -75,6 +75,8 @@ let fetchPermissionInfo = async () => {
   // }
   try {
     let userPermissionInfo = await userService.getUserPermissionInfo()
+    userInfo.name = userPermissionInfo.userName
+    userInfo.avatarUrl = userPermissionInfo.avatarUrl
     permissionMenu = userPermissionInfo.accessMenus
     permissionHeader = userPermissionInfo.accessHeader
     permissionRouter = userPermissionInfo.accessRoutes
@@ -95,6 +97,7 @@ let fetchPermissionInfo = async () => {
   let allMenuHeader = [...menuHeader, ...permissionHeader]
   // 动态添加路由
   router.addRoutes(permissionRouter)
+  store.dispatch('d2admin/user/set', userInfo)
   // 处理路由 得到每一级的路由设置
   store.commit('d2admin/page/init', [...frameInRoutes, ...permissionRouter])
   // 设置顶栏菜单

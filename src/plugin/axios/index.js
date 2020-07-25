@@ -38,6 +38,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (!permission.access(config, store)) {
+      // eslint-disable-next-line no-throw-literal
       throw {
         type: '403',
         config: config

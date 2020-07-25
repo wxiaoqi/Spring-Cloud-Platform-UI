@@ -21,6 +21,7 @@
     "element-ui": "^2.4.11",
     "file-saver": "^2.0.2",
     "flex.css": "^1.1.7",
+    "form-gen-parser": "^1.0.3",
     "fuse.js": "^3.2.1",
     "hotkeys-js": "^3.3.6",
     "js-cookie": "^2.2.0",
