@@ -24,23 +24,22 @@
               <el-input type="text" v-model="formLogin.code" placeholder="- - - -">
                 <template slot="prepend">验证码</template>
                 <template slot="append">
-                  <img class="login-code" src="./image/login-code.png">
+                  <img class="login-code" :src="codeUrl" @click="getCode">
                 </template>
               </el-input>
             </el-form-item>
             <el-button-group>
               <el-button size="default" @click="submit" type="primary">登录</el-button>
-              <el-button size="default" @click="resetDb">初始化</el-button>
             </el-button-group>
           </el-form>
         </el-card>
       </div>
       <!-- 快速登录按钮 -->
-      <el-button size="default" type="info" class="button-help" @click="dialogVisible = true">
+      <!-- <el-button size="default" type="info" class="button-help" @click="dialogVisible = true">
         快速选择用户（测试权限）
-      </el-button>
+      </el-button> -->
     </div>
-    <el-dialog title="快速选择用户" :visible.sync="dialogVisible" width="400px">
+    <!-- <el-dialog title="快速选择用户" :visible.sync="dialogVisible" width="400px">
       <el-row :gutter="10" style="margin: -20px 0px -10px 0px;">
         <el-col v-for="(user, index) in users" :key="index" :span="8">
           <div class="user-btn" @click="handleUserBtnClick(user)">
@@ -49,7 +48,7 @@
           </div>
         </el-col>
       </el-row>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -58,12 +57,13 @@
 require("particles.js");
 import config from "./config/default";
 import { mapActions } from "vuex";
-import * as sysService from "@/api/sys/sys";
+import {getCodeImg} from "@/api/sys/login"
 export default {
   data() {
     return {
       // 快速选择用户
       dialogVisible: false,
+      codeUrl: './image/login-code.png',
       users: [
         {
           name: "超级管理员",
@@ -85,7 +85,8 @@ export default {
       formLogin: {
         username: "admin",
         password: "admin",
-        code: "v9am"
+        uuid: "",
+        code: ""
       },
       // 校验
       rules: {
@@ -110,6 +111,9 @@ export default {
       pJSDom = [];
     }
   },
+  created () {
+    this.getCode()
+  },
   methods: {
     ...mapActions("d2admin/account", ["login"]),
     /**
@@ -121,6 +125,12 @@ export default {
       this.formLogin.password = user.password;
       this.submit();
     },
+    getCode() {
+      getCodeImg().then(response => {
+        this.codeUrl = "data:image/gif;base64," + response.captcha;
+        this.formLogin.uuid = response.uuid;
+      });
+    },
     /**
      * @description 提交表单
      */
@@ -129,21 +139,18 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           // 登录
-          // 注意 这里的演示没有传验证码
-          // 具体需要传递的数据请自行修改代码
           this.login({
             vm: this,
             username: this.formLogin.username,
-            password: this.formLogin.password
+            password: this.formLogin.password,
+            verCode: this.formLogin.code,
+            uuid: this.formLogin.uuid
           });
         } else {
           // 登录表单校验失败
           this.$message.error("表单校验失败");
         }
       });
-    },
-    resetDb() {
-      sysService.resetDb();
     }
   }
 };

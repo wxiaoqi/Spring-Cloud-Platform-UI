@@ -69,11 +69,11 @@ service.interceptors.response.use(
     const res = response.data
     if (res.statusCode !== 200) {
       Message({
-        message: res.msg,
+        message: res.message,
         type: 'error',
         duration: 3 * 1000
       })
-      return Promise.reject(res.msg)
+      return Promise.reject(res.message)
     } else {
       message(response.config)
       return res.data

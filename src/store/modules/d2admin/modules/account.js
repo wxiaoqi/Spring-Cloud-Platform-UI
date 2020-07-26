@@ -16,6 +16,8 @@ export default {
       vm,
       username,
       password,
+      uuid,
+      verCode,
       route = {
         name: 'index'
       }
@@ -23,7 +25,9 @@ export default {
       // 开始请求登录接口
       AccountLogin({
         username,
-        password
+        password,
+        uuid,
+        verCode
       })
         .then(async res => {
           // 设置 cookie 一定要存 uuid 和 token 两个 cookie

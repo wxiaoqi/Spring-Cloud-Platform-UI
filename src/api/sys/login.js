@@ -1,6 +1,6 @@
 import request from '@/plugin/axios'
 
-export function AccountLogin(data) {
+export function AccountLogin (data) {
   return request({
     url: '/api/auth/jwt/token',
     method: 'post',
@@ -15,5 +15,12 @@ export function AccountLogin(data) {
         background: 'rgba(0, 0, 0, 0.8)'
       }
     }
+  })
+}
+
+export function getCodeImg (data) {
+  return request({
+    url: '/api/auth/captcha',
+    method: 'get'
   })
 }
