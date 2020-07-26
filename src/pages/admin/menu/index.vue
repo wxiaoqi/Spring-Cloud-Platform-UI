@@ -11,7 +11,7 @@
   <el-col :span="8" style='margin-top:15px;'>
     <el-input
       placeholder="输入关键字进行过滤"
-      v-model="filterText">
+      v-model="filterText" size="mini">
     </el-input>
     <el-tree
       class="filter-tree"

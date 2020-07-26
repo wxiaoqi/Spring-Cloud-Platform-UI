@@ -12,12 +12,12 @@
           <el-form ref="loginForm" label-position="top" :rules="rules" :model="formLogin" size="default">
             <el-form-item prop="username">
               <el-input type="text" v-model="formLogin.username" placeholder="用户名">
-                <i slot="prepend" class="fa fa-user-circle-o"></i>
+                <i slot="prepend" class="fa fa-user-circle-o">账户</i>
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
               <el-input type="password" v-model="formLogin.password" placeholder="密码">
-                <i slot="prepend" class="fa fa-keyboard-o"></i>
+                <i slot="prepend" class="fa fa-keyboard-o">密码</i>
               </el-input>
             </el-form-item>
             <el-form-item prop="code">
