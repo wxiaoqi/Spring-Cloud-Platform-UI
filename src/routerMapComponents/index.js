@@ -10,7 +10,9 @@ let componentMaps = {
   'gateLogManager': () => import(/* webpackChunkName: "gateLogManager" */'@/pages/admin/gateLog'),
   'groupTypeManager': () => import(/* webpackChunkName: "groupTypeManager" */'@/pages/admin/groupType'),
   'devFormManager': () => import(/* webpackChunkName: "devFormManager" */'@/pages/dev/build'),
-  'codeManager': () => import(/* webpackChunkName: "codeManager" */'@/pages/dev/code')
+  'codeManager': () => import(/* webpackChunkName: "codeManager" */'@/pages/dev/code'),
+  'onlineManager': () => import(/* webpackChunkName: "onlineManager" */'@/pages/admin/online')
+
 }
 files.keys().forEach((key) => {
   if (key === './index.js') return

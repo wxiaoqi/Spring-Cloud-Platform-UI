@@ -1,5 +1,5 @@
 import util from '@/libs/util.js'
-import { AccountLogin } from '@/api/sys/login'
+import { AccountLogin,AccountLogout } from '@/api/sys/login'
 
 export default {
   namespaced: true,
@@ -65,12 +65,14 @@ export default {
        * @description 注销
        */
       function logout () {
-        // 删除cookie
-        util.cookies.remove('token')
-        util.cookies.remove('uuid')
-        // 跳转路由
-        vm.$router.push({
-          name: 'login'
+        AccountLogout(util.cookies.get('token')).then(async res => {
+          // 删除cookie
+          util.cookies.remove('token')
+          util.cookies.remove('uuid')
+          // // 跳转路由
+          vm.$router.push({
+            name: 'login'
+          })
         })
       }
       // 判断是否需要确认
@@ -85,9 +87,9 @@ export default {
             commit('d2admin/gray/set', false, { root: true })
             logout()
             // 注销后重置应用，目前没有找到更好的方法
-            setTimeout(() => {
-              location.reload()
-            }, 1000)
+            // setTimeout(() => {
+            //   location.reload()
+            // }, 1000)
           })
           .catch(() => {
             commit('d2admin/gray/set', false, { root: true })

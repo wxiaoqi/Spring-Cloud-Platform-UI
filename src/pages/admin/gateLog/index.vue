@@ -10,7 +10,7 @@
         </el-button>
       </div>
     </template>
-    <el-table :key='tableKey' :data="list" v-loading.body="listLoading" border fit highlight-current-row
+    <el-table :key='tableKey' :data="list" v-loading.body="listLoading" size="small" stripe highlight-current-row
       style="width: 100%">
       <el-table-column align="center" label="id" width="65">
         <template slot-scope="scope">
