@@ -1,15 +1,7 @@
 ### 运行使用
 
 ```bash
-git clone https://github.com/wjkang/d2-admin-pm.git
-
-npm install
-
-npm start
-```
-需要后端mock服务的支持
-```bash
-git clone https://github.com/wjkang/d2-admin-server.git
+git clone https://github.com/wxiaoqi/Spring-Cloud-Platform-UI.git
 
 npm install
 
