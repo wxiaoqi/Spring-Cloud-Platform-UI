@@ -1,13 +1,16 @@
 <template>
-  <div class="app-container calendar-list-container">
+  <d2-container>
+        <template slot="header">
+
     <div class="filter-container">
-      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="姓名或账户" v-model="listQuery.name"> </el-input>
-      <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter">搜索</el-button>
-      <el-button class="filter-item" v-if="serviceManager_btn_add" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit">添加</el-button>
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="姓名或账户" v-model="listQuery.name"  size="small"> </el-input>
+      <el-button class="filter-item" type="primary" v-waves icon="search" @click="handleFilter"  size="small">搜索</el-button>
+      <el-button class="filter-item" v-if="serviceManager_btn_add" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="edit"  size="small">添加</el-button>
       <el-button type="primary" v-if="serviceManager_btn_clientManager" @click="handlerClient">
           <icon-svg icon-class="27"></icon-svg>授权服务</el-button>
    </div>
-    <el-table :key='tableKey' :data="list" v-loading.body="listLoading"  @current-change="handleDataCurrentChange" border fit highlight-current-row style="width: 100%">
+        </template>
+    <el-table :key='tableKey' :data="list" v-loading.body="listLoading"  @current-change="handleDataCurrentChange" size="small" stripe highlight-current-row style="width: 100%">
       <el-table-column align="center" label="id" width="65">
       <template slot-scope="scope" >
         <span>{{scope.row.id}}</span>
@@ -85,9 +88,12 @@
         </el-button>
       </template> </el-table-column>
     </el-table>
+        <template slot="footer">
+
     <div v-show="!listLoading" class="pagination-container">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
     </div>
+        </template>
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
         <el-form-item label="服务编码" prop="code">
@@ -115,7 +121,7 @@
     <el-dialog :title="dialogClientName" :visible.sync="dialogClientVisible">
     <service-client :serviceId="currentId" @closeClientDialog="closeClientDialog" ref="serviceClient"></service-client>
   </el-dialog>
-  </div>
+  </d2-container>
 </template>
 
 <script>
@@ -200,9 +206,9 @@ export default {
       dialogClientName: '授权服务',
       dialogClientVisible: false,
       dialogStatus: '',
-      serviceManager_btn_edit: false,
-      serviceManager_btn_del: false,
-      serviceManager_btn_add: false,
+      serviceManager_btn_edit: this.hasPermissions(['serviceManager:btn_edit']),
+      serviceManager_btn_del: this.hasPermissions(['serviceManager:btn_del']),
+      serviceManager_btn_add: this.hasPermissions(['serviceManager:btn_add']),
       textMap: {
         update: '编辑',
         create: '创建'
@@ -247,7 +253,7 @@ export default {
     },
     handleUpdate (row) {
       getObj(row.id).then(response => {
-        this.form = response.data
+        this.form = response
         this.dialogFormVisible = true
         this.dialogStatus = 'update'
       })
