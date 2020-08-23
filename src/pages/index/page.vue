@@ -1,14 +1,14 @@
 <template>
   <d2-container class="page">
     <d2-page-cover
-      title="D2 Admin PM"
-      sub-title="基于D2 Admin实现的RBAC权限管理解决方案">
+      title="Cloud-Platform"
+      sub-title="基于Spring Cloud微服务的中台系统">
       <d2-icon-svg
         class="page__logo"
         name="d2-admin"/>
       <template slot="footer">
         <div class="page__btn-group">
-          <span @click="$open('https://github.com/wxiaoqi/Spring-Cloud-Platform-')">Github</span>
+          <span @click="$open('https://github.com/wxiaoqi/Spring-Cloud-Platform')">Github</span>
         </div>
       </template>
     </d2-page-cover>

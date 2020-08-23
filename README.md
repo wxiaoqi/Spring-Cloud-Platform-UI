@@ -1,7 +1,7 @@
 ### 运行使用
 
 ```bash
-git clone https://github.com/wxiaoqi/Spring-Cloud-Platform-UI.git
+git clone https://github.com/wxiaoqi/Spring-Cloud-PlatformUI.git
 
 npm install
 

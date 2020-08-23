@@ -17,45 +17,50 @@
           <span>{{scope.row.id}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="200px" align="center" label="菜单"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="菜单"><template slot-scope="scope">
           <span>
             {{scope.row.menu}}</span>
         </template>
 
       </el-table-column>
-      <el-table-column width="200px" align="center" label="操作"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="操作"><template slot-scope="scope">
           <span>
             {{scope.row.opt}}</span>
         </template>
 
       </el-table-column>
-      <el-table-column width="200px" align="center" label="资源路径"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="资源路径"><template slot-scope="scope">
           <span>
             {{scope.row.uri}}</span>
         </template>
 
       </el-table-column>
-      <el-table-column width="200px" align="center" label="操作时间"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="操作时间"><template slot-scope="scope">
           <span>
             {{scope.row.crtTime}}</span>
         </template>
 
       </el-table-column>
-      <el-table-column width="200px" align="center" label="操作人ID"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="操作人ID"><template slot-scope="scope">
           <span>
             {{scope.row.crtUser}}</span>
         </template>
 
       </el-table-column>
-      <el-table-column width="200px" align="center" label="操作人"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="操作人"><template slot-scope="scope">
           <span>
             {{scope.row.crtName}}</span>
         </template>
 
       </el-table-column>
-      <el-table-column width="200px" align="center" label="操作主机"><template slot-scope="scope">
+      <el-table-column width="100px" align="center" label="操作主机"><template slot-scope="scope">
           <span>
             {{scope.row.crtHost}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="400px" align="center" label="请求数据"><template slot-scope="scope">
+          <span>
+            {{scope.row.body}}</span>
         </template>
       </el-table-column>
     </el-table>

@@ -14,8 +14,8 @@ export default {
      */
     versionShow (state) {
       util.log.capsule('D2Admin', `v${state.version}`)
-      console.log('Github https://github.com/wxiaoqi/Spring-Cloud-Platform-  https://github.com/d2-projects/d2-admin')
-      console.log('Doc https://github.com/wxiaoqi/Spring-Cloud-Platform-  https://doc.d2admin.fairyever.com/zh/')
+      console.log('Github https://github.com/wxiaoqi/Spring-Cloud-Platform  https://github.com/d2-projects/d2-admin')
+      console.log('Doc https://github.com/wxiaoqi/Spring-Cloud-Platform  https://doc.d2admin.fairyever.com/zh/')
       console.log('请不要吝啬您的 star，谢谢 ~')
     }
   }
