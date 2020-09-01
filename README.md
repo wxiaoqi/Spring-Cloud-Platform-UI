@@ -1,3 +1,8 @@
+### 后端工程地址
+```
+Gitee：https://gitee.com/geek_qi/cloud-platform
+Github：https://github.com/wxiaoqi/Spring-Cloud-Platform
+```
 ### 运行使用
 
 ```bash
@@ -359,23 +364,3 @@ data() {
 * 开发阶段菜单与路由的添加可由开发人员自行维护，并维护一份清单，上线后将清单交给相关的人去维护即可。
 
 >如果觉得麻烦，不想菜单与路由由后端返回，可以在前端维护一份菜单和路由(路由中的`component`还是使用字符串，参考`mock/permissionMenuAndRouter.js`)，并且在菜单和路由上面维护相应的权限编码，一般都是使用功能编码。后端就不需要返回菜单和路由信息了，但是其他权限信息，比如角色编码，功能编码等还是需要的。通过后端返回的功能编码列表，在前端过滤出用户具备权限的菜单和路由，过滤处理后后的菜单与路由格式与之前由后端返回的格式一致，然后将处理后的菜单与路由当做后端返回的一样处理即可。
-
-### 数据mock与代码生成
-
-数据mock使用[lazy-mock](https://github.com/wjkang/lazy-mock)修改而来的[d2-admin-server](https://github.com/wjkang/d2-admin-server)，数据真实来源于后端，相比其他工具，支持数据持久化，存储使用的是json文件，不需要安装数据库。简单的配置即可自动生成增删改查的接口。详细用法可看[lazy-mock文档](https://github.com/wjkang/lazy-mock)
-
-后端使用中间件控制访问权限，比如：
-```js
- .get('/menu', PermissionCheck(), controllers.menu.getMenuList)
-```
-`PermissionCheck`默认使用接口进行校验，校验用户所能访问的API中是否匹配当前API，支持使用功能编码与角色编码进行校验`PermissionCheck(["p_menu_edit"],["r_menu_admin"],true)`,第一个参数为功能编码，第二个为角色编码，第三个为是否使用接口进行校验。
-
-前端代码生成还在开发中...
-
-### 相关文章
-[vue权限路由实现方式总结](https://juejin.im/post/5b5bfd5b6fb9a04fdd7d687a)
-[vue权限路由实现方式总结二](https://juejin.im/post/5c0b2130f265da615c5913d9)
-[企业管理系统前后端分离架构设计 系列一 权限模型篇](https://juejin.im/post/5b59c2956fb9a04faa79af6f)
-
-
-<a href="https://github.com/d2-projects/d2-admin" target="_blank"><img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200"></a>
