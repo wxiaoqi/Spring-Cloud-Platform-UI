@@ -33,10 +33,10 @@ util.open = function (url) {
  */
 util.formatInterfaces = function (interfaces) {
   let i = {}
-  i["GET"] = interfaces.filter(s => s.method.toUpperCase() === "GET").map(s => parse(s.path))
-  i["POST"] = interfaces.filter(s => s.method.toUpperCase() === "POST").map(s => parse(s.path))
-  i["PUT"] = interfaces.filter(s => s.method.toUpperCase() === "PUT").map(s => parse(s.path))
-  i["DELETE"] = interfaces.filter(s => s.method.toUpperCase() === "DELETE").map(s => parse(s.path))
+  i['GET'] = interfaces.filter(s => s.method.toUpperCase() === 'GET').map(s => parse(s.path))
+  i['POST'] = interfaces.filter(s => s.method.toUpperCase() === 'POST').map(s => parse(s.path))
+  i['PUT'] = interfaces.filter(s => s.method.toUpperCase() === 'PUT').map(s => parse(s.path))
+  i['DELETE'] = interfaces.filter(s => s.method.toUpperCase() === 'DELETE').map(s => parse(s.path))
   return i
 }
 

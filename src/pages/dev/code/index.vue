@@ -43,6 +43,9 @@
           <el-form-item label="package" prop="package">
             <el-input v-model="buildProjectForm.package" placeholder="请输入代码包路径"></el-input>
           </el-form-item>
+          <el-form-item label="移除表前缀" prop="tablePrefix">
+            <el-input v-model="buildProjectForm.tablePrefix" placeholder="请输入移除表前缀"></el-input>
+          </el-form-item>
           <el-form-item label="前端模块名">
             <el-input v-model="buildProjectForm.mainModule" placeholder="请输入前端模块名"></el-input>
           </el-form-item>
@@ -79,6 +82,7 @@ export default {
       },
       buildProjectForm: {
         package: undefined,
+        tablePrefix: '',
         author: '',
         mainModule: ''
       },
@@ -169,7 +173,7 @@ export default {
           elink.style.display = 'none'
           elink.target = '_blank'
           elink.href = process.env.VUE_APP_API +
-              '/api/code/generator/build?tables=' + this.tables.concat() + '&author=' + this.buildProjectForm.author + '&path=' + this.buildProjectForm.package + '&mainModule=' + this.buildProjectForm.mainModule + '&dbName=' + this.listQuery.dbName + '&token=' + util.cookies.get('token')
+              '/api/code/generator/build?tables=' + this.tables.concat() + '&author=' + this.buildProjectForm.author + '&path=' + this.buildProjectForm.package + '&mainModule=' + this.buildProjectForm.mainModule + '&dbName=' + this.listQuery.dbName + '&tablePrefix=' + this.buildProjectForm.tablePrefix + '&token=' + util.cookies.get('token')
           document.body.appendChild(elink)
           elink.click()
           URL.revokeObjectURL(elink.href) // 释放URL 对象
