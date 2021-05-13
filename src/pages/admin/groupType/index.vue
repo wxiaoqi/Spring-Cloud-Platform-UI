@@ -205,7 +205,7 @@ export default {
     },
     handleUpdate (row) {
       getObj(row.id).then(response => {
-        this.form = response.data
+        this.form = response
         this.dialogFormVisible = true
         this.dialogStatus = 'update'
       })
