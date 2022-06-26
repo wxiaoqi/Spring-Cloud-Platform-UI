@@ -21,7 +21,7 @@
               </el-input>
             </el-form-item>
             <el-form-item prop="code">
-              <el-input type="text" v-model="formLogin.code" placeholder="- - - -">
+              <el-input type="text" v-model="formLogin.code" placeholder="- - - -" @keydown.enter.native="submit">
                 <template slot="prepend">验证码</template>
                 <template slot="append">
                   <img class="login-code" :src="codeUrl" @click="getCode">
